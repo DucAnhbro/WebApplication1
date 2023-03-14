@@ -1,7 +1,8 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
-    <title>W3.CSS Template</title>
+    <title>Home Page</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -21,32 +22,18 @@
         <a href="#rooms" class="w3-bar-item w3-button w3-mobile">Rooms</a>
         <a href="#about" class="w3-bar-item w3-button w3-mobile">About</a>
         <a href="#contact" class="w3-bar-item w3-button w3-mobile">Contact</a>
-        <a href="#contact" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">Book Now</a>
+        @if (ViewBag.user != null)
+        {
+            @Html.ActionLink("Logout", "Logout", "Account",null, new { @class = "w3-bar-item w3-button w3-right w3-mobile" })
+
+        }
+       
+        
     </div>
     <!-- Header -->
     <header class="w3-display-container w3-content" style="max-width:1500px;">
         <img class="w3-image" src="https://cdn.chotot.com/bmoEAeAYCWmgatXHfopkHu9YwlOK0KZknl0s7UfTFRg/preset:view/plain/fcd83eab198b8a87abaa5825786d2cb8-2813393658469439561.jpg" alt="The Hotel" style="min-width:1000px" width="1500" height="800">
-        <div class="w3-display-left w3-padding w3-col l6 m8">
-            <div class="w3-container w3-red">
-                <h2><i class="fa fa-bed w3-margin-right"></i>Find Motel</h2>
-            </div>
-            <div class="w3-container w3-white w3-padding-16">
-                <form action="/action_page.php" target="_blank">
-                    <div class="w3-row-padding" style="margin:0 -16px;">
-                        <div class="w3-half w3-margin-bottom">
-                            <label><i class="fa fa-calendar-o"></i> Check In</label>
-                            <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>
-                        </div>
-                        <div class="w3-half">
-                            <label><i class="fa fa-calendar-o"></i> Check Out</label>
-                            <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>
-                        </div>
-                    </div>
 
-                    <button class="w3-button w3-dark-grey" type="submit"><i class="fa fa-search w3-margin-right"></i> Search availability</button>
-                </form>
-            </div>
-        </div>
     </header>
 
     <!-- Page content -->
@@ -57,20 +44,6 @@
             <p>Make yourself at home is our slogan. We offer the best beds in the industry. Sleep well and rest well.</p>
         </div>
 
-        <div class="w3-row-padding">
-            <div class="w3-col m3">
-                <label><i class="fa fa-calendar-o"></i> Check In</label>
-                <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY">
-            </div>
-            <div class="w3-col m3">
-                <label><i class="fa fa-calendar-o"></i> Check Out</label>
-                <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY">
-            </div>
-            <div class="w3-col m2">
-                <label><i class="fa fa-search"></i> Search</label>
-                <button class="w3-button w3-block w3-black">Search</button>
-            </div>
-        </div>
         <div class="w3-row-padding w3-padding-16">
 
         @foreach(var item in ViewBag.Motels){
@@ -82,7 +55,7 @@
                     <p>Total Room: @item.TotalRoom</p>
                     <p>Contact: @item.HostPhone</p>
                     <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i></p>
-                        @Html.ActionLink("View Details", "Index", "DetailsMotel", null, new { @class = "w3-button w3-block w3-black w3-margin-bottom" })
+                        @Html.ActionLink("View Details", "Index", "DetailsMotel",new{@item.Id}, new { @class = "w3-button w3-block w3-black w3-margin-bottom" })
                 </div>
             </div>
             }

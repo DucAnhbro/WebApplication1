@@ -30,6 +30,6 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=HomePage}/{action=HomePage}/{id?}");
+    pattern: "{controller=Motel}/{action=Index}/{id?}");
 
 app.Run();

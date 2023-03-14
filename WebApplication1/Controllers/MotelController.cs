@@ -1,40 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class CustomersController : Controller
-
+    public class MotelController : Controller
     {
         public DemodatbaseContext context = new DemodatbaseContext();
-        // GET: Customers
         public async Task<IActionResult> Index()
         {
-              return View(await context.Customers.ToListAsync());
+            return View(await context.Motels.ToListAsync());
         }
 
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || context.Customers == null)
+            if (id == null || context.Motels == null)
             {
                 return NotFound();
             }
 
-            var customer = await context.Customers
+            var motel = await context.Motels
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
+            if (motel == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(motel);
         }
 
         // GET: Customers/Create
@@ -48,31 +41,31 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FullName,Age,UserName,Password,Address,Phone,Role")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,MotelName,Address,TotalRoom,HostPhone,CustomerId")] Motel motel)
         {
             if (ModelState.IsValid)
             {
-                context.Add(customer);
+                context.Add(motel);
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(motel);
         }
 
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || context.Customers == null)
+            if (id == null || context.Motels == null)
             {
                 return NotFound();
             }
 
-            var customer = await context.Customers.FindAsync(id);
-            if (customer == null)
+            var motel = await context.Motels.FindAsync(id);
+            if (motel == null)
             {
                 return NotFound();
             }
-            return View(customer);
+            return View(motel);
         }
 
         // POST: Customers/Edit/5
@@ -80,9 +73,9 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,Age,UserName,Password,Address,Phone,Role")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MotelName,Address,TotalRoom,HostPhone,CustomerId")] Motel motel)
         {
-            if (id != customer.Id)
+            if (id != motel.Id)
             {
                 return NotFound();
             }
@@ -91,12 +84,12 @@ namespace WebApplication1.Controllers
             {
                 try
                 {
-                    context.Update(customer);
+                    context.Update(motel);
                     await context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.Id))
+                    if (!MotelExists(motel.Id))
                     {
                         return NotFound();
                     }
@@ -107,25 +100,25 @@ namespace WebApplication1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(motel);
         }
 
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || context.Customers == null)
+            if (id == null || context.Motels == null)
             {
                 return NotFound();
             }
 
-            var customer = await context.Customers
+            var motel = await context.Motels
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
+            if (motel == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(motel);
         }
 
         // POST: Customers/Delete/5
@@ -133,23 +126,23 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (context.Customers == null)
+            if (context.Motels == null)
             {
                 return Problem("Entity set 'DemodatbaseContext.Customers'  is null.");
             }
-            var customer = await context.Customers.FindAsync(id);
-            if (customer != null)
+            var motel = await context.Motels.FindAsync(id);
+            if (motel != null)
             {
-                context.Customers.Remove(customer);
+                context.Motels.Remove(motel);
             }
-            
+
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(int id)
+        private bool MotelExists(int id)
         {
-          return context.Customers.Any(e => e.Id == id);
+            return context.Motels.Any(e => e.Id == id);
         }
     }
 }

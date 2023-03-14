@@ -6,12 +6,14 @@ namespace WebApplication1.Controllers
     public class DetailsMotelController : Controller
     {
         public DemodatbaseContext context = new DemodatbaseContext();
-
+        public DetailMotel motel = new DetailMotel();
         public IActionResult Index(int id)
         {
-           
-            ViewBag.DetailMotels = deltails;
-            return View();
+            var details = context.DetailMotels.FirstOrDefault(x=> x.Id == id);
+            motel.AreaOfRoom = details.AreaOfRoom;
+            motel.Status = details.Status;
+            motel.Price = details.Price;
+            return View(motel);
         }
     }
 }

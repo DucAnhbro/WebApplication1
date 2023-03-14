@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
-
 namespace WebApplication1.Controllers
 {
     public class AccountController : Controller
@@ -52,7 +51,8 @@ namespace WebApplication1.Controllers
                     {
                         HttpContext.Session.SetString(username, "UserName");
                         HttpContext.Session.SetString(password, "Password");
-                        if(data.UserName == "Admin")
+                        ViewBag.user = username;
+                        if (data.UserName == "Admin")
                         {
                             return RedirectToAction("Index", "Customers");
                         }
