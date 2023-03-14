@@ -52,7 +52,19 @@ namespace WebApplication1.Controllers
                     {
                         HttpContext.Session.SetString(username, "UserName");
                         HttpContext.Session.SetString(password, "Password");
-                        return RedirectToAction("HomePage");
+                        if(data.UserName == "Admin")
+                        {
+                            return RedirectToAction("Index", "Customers");
+                        }
+                        if(data.Role == 1)
+                        {
+                            return RedirectToAction("","");
+                        }
+                        if(data.Role == 2)
+                        {
+                            return RedirectToAction("HomePage", "HomePage");
+
+                        }
                     }
                     else
                     {
